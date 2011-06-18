@@ -1,4 +1,4 @@
-== A dumb smtp server and a dump email viewer ==
+== A dumb smtp server and a dumb email viewer ==
 The purpose of this project is to implement the software required to test an
 idea I had a few days ago. It contains, as stated, of a dumb smtp server which
 does not even store received emails and a dumb email viewer, which can only
@@ -16,10 +16,10 @@ It soon appeared to me that a useful benefit of this is that you receive emails
 instantaneously, even if you don't have your email program open and configured
 for IMAP push. This is particularly useful for Facebook. But then, if I use my
 computer as an email address provider for my Facebook account, they will
-soon comply to me that my email account does not work and/or send me a
+soon comply to me that my email account does not work and/or forward me a
 bunch of mails when I switch my PC on. A better solution was to have the
-SMTP server itself running independently of my PC, e.g. on my router, and just
-silently dropping mails when my PC is turned off.
+SMTP server itself run independently of my PC, e.g. on my router, and just
+silently drop mails when my PC is turned off.
 
 An implementation of this idea is exactly what I uploaded here!
 
@@ -43,7 +43,9 @@ line containing a single period (like in the SMTP protocol). Whenever an email
 is completely received, a window is opened containing a webkit view of the mail,
 either decoded text/plain or text/html (with embedded images!) if available.
 
+Put it in your PC's autostart!
+
 === Feedback ===
 I mainly placed this here in hope for some feedback:
-* Do you like the idea? What do you expect: That I will get overwhelmed with spam soon? (Luckily, it's easy and does not hurt to change a dynDns-domain-name ;-)) Or that this might just work out?
+* Do you like the idea? What do you expect: That I will get overwhelmed by spam soon? (Luckily, it's easy and does not hurt to change a dynDns-domain-name ;-)) Or that this might just work out?
 * Do you have any suggestions or improvements?
