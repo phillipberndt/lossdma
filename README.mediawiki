@@ -1,0 +1,49 @@
+== A dumb smtp server and a dump email viewer ==
+The purpose of this project is to implement the software required to test an
+idea I had a few days ago. It contains, as stated, of a dumb smtp server which
+does not even store received emails and a dumb email viewer, which can only
+view mails received via UDP.
+
+=== What's the idea? ===
+I guess you all use some kind of disposable mail service to handle
+registrations for pages you don't really use and/or social networking pages. I
+recently had the idea of using my own computer as a mail server for that.
+
+So I hacked a small script which opens a SMTP server and uses webkit to display
+incoming mails in popup windows.
+
+It soon appeared to me that a useful benefit of this is that you receive emails
+instantaneously, even if you don't have your email program open and configured
+for IMAP push. This is particularly useful for Facebook. But then, if I use my
+computer as an email address provider for my Facebook account, they will
+soon comply to me that my email account does not work and/or send me a
+bunch of mails when I switch my PC on. A better solution was to have the
+SMTP server itself running independently of my PC, e.g. on my router, and just
+silently dropping mails when my PC is turned off.
+
+An implementation of this idea is exactly what I uploaded here!
+
+=== The programs ===
+==== dumb_smtpd ====
+A server partially implementing the SMTP protocol. Cross-compile it for your
+router and install it there. For example, if you have a Fritz!Box and use Freetz,
+run
+ freetz-trunk/toolchain/target/bin/mipsel-linux-gcc -lpthread -o dumb_smtpd dumb_smtpd.c
+To integrate the binary with Freetz, copy it into the subfolder
+ ./addon/own-files-0.1/root/bin
+of your Freetz trunk directory. (You'll also have to activate the own-files
+addon. You can do this by editing the static.pkg file in the addon directory)
+Afterwards, edit debug.cfg to have the binary start automatically by adding a line like
+ dumb_smtpd 11025 <your (dyn)dns name> <your pc's ip in your lan> 12025
+and configure the firewall to forward port 25 to port 11025 on the router itself.
+
+==== mail_displayer ====
+This python script listens on port 11025/UDP and reads emails, assuming they end with a
+line containing a single period (like in the SMTP protocol). Whenever an email
+is completely received, a window is opened containing a webkit view of the mail,
+either decoded text/plain or text/html (with embedded images!) if available.
+
+=== Feedback ===
+I mainly placed this here in hope for some feedback:
+* Do you like the idea? What do you expect: That I will get overwhelmed with spam soon? (Luckily, it's easy and does not hurt to change a dynDns-domain-name ;-)) Or that this might just work out?
+* Do you have any suggestions or improvements?
