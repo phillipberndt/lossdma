@@ -219,7 +219,7 @@ int main(int argc, char *argv[]) {
 	}
 	
 	// Fork into background
-	//daemon(0, 0);
+	daemon(0, 0);
 
 	// Listen forever, let client_handler handle connections
 	struct sockaddr_in client_addr;
