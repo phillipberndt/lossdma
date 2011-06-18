@@ -38,7 +38,6 @@ inline void sendstr(int sock, char *str) {
 // Handler function for incoming connections
 void *client_handler(void *void_sock) {
 	int sock = (int)void_sock;
-	printf("Thread. Sock is %d\n", sock);
 
 	// Create an UDP socket to the target host
 	// Resolve here to allow for dynamic IP changes
@@ -227,7 +226,6 @@ int main(int argc, char *argv[]) {
 	pthread_t thread_info;
 	while(1) {
 		client = accept(server, NULL, NULL);
-		printf("Sock is %d\n", client);
 		pthread_create(&thread_info, NULL, &client_handler, (void*)client);
 		// ↑ SIC! We don't send a pointer to client to avoid having to deal with
 		// typical threading problems. Also, we don't need to know the thread's
